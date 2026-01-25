@@ -1,30 +1,51 @@
 "use client";
 
-import { BarChart } from "@mantine/charts";
-import { Card, Text } from "@mantine/core";
+import { Card, Text, Group, Progress, Stack, Select } from "@mantine/core";
 
-const data = [
-  { supplier: "Bosch UK", value: 95 },
-  { supplier: "Conductix", value: 85 },
-  { supplier: "Siemens", value: 90 },
-  { supplier: "Hit UK", value: 70 },
+const suppliers = [
+  { name: "Bosch UK", value: 94, label: "On Time (94%)" },
+  { name: "Conductix", value: 76, label: "On Time (76%)" },
+  { name: "Siemens", value: 84, label: "On Time (84%)" },
+  { name: "Hilti UK", value: 94, label: "On Time (94%)" },
 ];
 
 export default function SupplierPerformanceBar() {
   return (
-    <Card className="w-full" radius="md" withBorder>
-      <Text fw={600} mb="sm">
-        Suppliers Performance
-      </Text>
+    <Card radius="md" withBorder p="md">
+      <Group justify="space-between" mb="lg">
+        <Text fw={500} size="lg" c={"#202939"}>
+          Supplier Performance
+        </Text>
+        <Select
+          size="xs"
+          radius={10}
+          defaultValue="7 Days"
+          data={["7 Days", "30 Days", "This Month"]}
+          style={{ width: 100 }}
+        />
+      </Group>
 
-      <BarChart
-        h={260}
-        data={data}
-        dataKey="supplier"
-        orientation="vertical"
-        series={[{ name: "value", color: "green.6" }]}
-        barSize={20}
-      />
+      <Stack gap="xl">
+        {suppliers.map((supplier, index) => (
+          <div key={index}>
+            <Group justify="space-between" mb={8}>
+              <Text size="sm" fw={500} c={"#121926"}>
+                {supplier.name}
+              </Text>
+              <Text size="xs" c="#16B364" fw={500}>
+                {supplier.label}
+              </Text>
+            </Group>
+            <Progress
+              value={supplier.value}
+              color="#16B364"
+              size="lg"
+              radius="xl"
+              bg="#F1F5F9"
+            />
+          </div>
+        ))}
+      </Stack>
     </Card>
   );
 }
