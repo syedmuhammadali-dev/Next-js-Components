@@ -67,7 +67,11 @@
             : data.period || "N/A"}
         </Text>
       </Stack>
+   
 
+
+
+   
       {data.description && (
         <Stack gap="xs">
           <Text fw={500} c="#697586">
